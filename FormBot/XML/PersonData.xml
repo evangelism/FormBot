@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<FormDefinition>
+  <Intro>
+    Здравствуйте! Я ассистент по подбору персонала в электросетевом комплексе России и  помогу Вам подобрать вакансию сейчас или  проинформирую о появлении соответствующей вакансии (спама не будет- обещаю). А также буду предоставлять информацию о статусе вашей заявки.
+  </Intro>
+  <WelcomeBack>
+    Добро пожаловать! Давайте продолжим заполнение формы.
+  </WelcomeBack>
+  <Fields>
+    <Field Name="Name" Text="Введите имя"/>
+    <Field Name="Category" Type="choice" Text="Введите категорию работы">
+      <Choice Value="Elec">Электротехническое</Choice>
+      <Choice Value="IT">ИТ и телекоммуникации</Choice>
+      <Choice Value="Build">Строительство</Choice>
+    </Field>
+    <Field Name="Student" Type="bool" Text="Вы студент?"/>
+    <Field Name="YearGraduated" Condition="Student=T" Type="int" Text="В каком году выпустились из университета?"/>
+  </Fields>
+</FormDefinition>

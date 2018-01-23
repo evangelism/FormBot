@@ -8,18 +8,17 @@ using System.Web;
 namespace FormBot.Logic 
 {
     [Serializable]
-    public class PersonData : TableEntity, IEntityRetriever<PersonData>
+    public class PersonData : IEntityRetriever<PersonData>
     {
         public static Dictionary<string, PersonData> Store = new Dictionary<string, PersonData>();
 
         public PersonData() { }
         public PersonData(string xid)
         {
-            PartitionKey = "PD";
-            RowKey = xid;
+            UID = xid;
             Store.Add(xid, this);
         }
-
+        public string UID { get; set; }
         public string Name { get; set; }
         public string Category { get; set; }
         public string Student { get; set; }

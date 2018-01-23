@@ -14,6 +14,6 @@
       <Choice Value="Build">Строительство</Choice>
     </Field>
     <Field Name="Student" Type="bool" Text="Вы студент?"/>
-    <Field Name="YearGraduated" Condition="Student=T" Type="int" Text="В каком году выпустились из университета?"/>
+    <Field Name="YearGraduated" Condition="Student=Y" Type="int" Text="В каком году выпустились из университета?"/>
   </Fields>
 </FormDefinition>

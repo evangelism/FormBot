@@ -19,7 +19,8 @@ namespace FormBot
         {
             if (activity.Type == ActivityTypes.Message)
             {
-                await Conversation.SendAsync(activity, () => new Dialogs.XMLFormDialog<PersonData>());
+                await Conversation.SendAsync(activity, () => 
+                   new Dialogs.XMLFormDialog<PersonData>());
             }
             else
             {

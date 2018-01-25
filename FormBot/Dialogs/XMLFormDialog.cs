@@ -6,6 +6,7 @@ using System.Xml.Linq;
 using System.Linq;
 using FormBot.Evangelism;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace FormBot.Dialogs
 {
@@ -17,6 +18,7 @@ namespace FormBot.Dialogs
             Name = X.Attribute("Name")?.Value;
             Type = X.Attribute("Type")?.Value;
             Text = X.Attribute("Text")?.Value;
+            Condition = X.Attribute("Text")?.Value;
             if (Type == null) Type = "string";
             if (X.Descendants("Choice")!=null)
             {
@@ -36,6 +38,8 @@ namespace FormBot.Dialogs
         public string Type { get; set; }
         public string Text { get; set; }
         public Tuple<string, string>[] Options { get; set; }
+        
+        public string Condition { get; set; }
 
         public bool Set(object X, object Value)
         {
@@ -52,9 +56,12 @@ namespace FormBot.Dialogs
                     }
                 if (!done) return false;
             }
-            int t = 0;
-            if (Type == "int" && !int.TryParse((string)Value, out t)) return false;
-            else Value = t;
+            if (Type == "int")
+            {
+                int t = 0;
+                if (!int.TryParse((string)Value, out t)) return false;
+                // else Value = t; -- uncomment this to convert value to int type
+            }
             X.GetType().GetProperty(Name).SetValue(X, Value);
             return true;
         }
@@ -71,6 +78,15 @@ namespace FormBot.Dialogs
             if (Options != null && Options.Length>0) msg.Attachments = Options.Select(x=>x.Item2).GenOptions();
             await context.PostAsync(msg);
         }
+
+        public bool IsApplicable(Object X)
+        {
+            if (Condition == null || Condition.Length < 1) return true;
+            var t = Condition.Split('=');
+            var v = X.GetType().GetProperty(t[0]).GetValue(X);
+            if (v == null) return true;
+            return v.ToString() == t[1];
+        }
     }
 
     public interface IEntityRetriever<T>
@@ -84,11 +100,15 @@ namespace FormBot.Dialogs
         Field[] Fields { get; }
         Field CurrentField { get; set; }
         T Object { get; set; }
+
+        string welcome_msg, return_msg;
         public XMLFormDialog()
         {
             var n = typeof(T).Name;
             var xdoc = XDocument.Load(System.Web.HttpContext.Current.Request.MapPath($"~/XML/{n}.xml"));
             Fields = (from z in xdoc.Descendants("Field") select new Field(z)).ToArray();
+            welcome_msg = xdoc.Descendants("Intro").First().Value;
+            return_msg = xdoc.Descendants("WelcomeBack").First().Value;
         }
 
         public Task StartAsync(IDialogContext context)
@@ -124,7 +144,11 @@ namespace FormBot.Dialogs
                     }
                 }
             }
-            if (CurrentField == null) context.Done(Object);
+            if (CurrentField == null)
+            {
+                await context.Forward(new MenuDialog<T>(), async (ctx,x) => { ctx.Done(Object); }, activity, CancellationToken.None);
+                // context.Done(Object);
+            }
             else
             {
                 await CurrentField.Render(context);

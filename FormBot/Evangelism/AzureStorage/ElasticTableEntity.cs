@@ -10,7 +10,7 @@ using System.Web;
 
 namespace FormBot.Evangelism.AzureStorage
 {
-    public class ElasticTableEntity : DynamicObject, ITableEntity, IObjectIndexer
+    public class ElasticTableEntity : DynamicObject, ITableEntity, Indexed
     {
         public ElasticTableEntity()
         {

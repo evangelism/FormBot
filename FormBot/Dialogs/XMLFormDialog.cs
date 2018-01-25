@@ -7,6 +7,7 @@ using System.Linq;
 using FormBot.Evangelism;
 using System.Collections.Generic;
 using System.Threading;
+using FormBot.Evangelism.Data;
 
 namespace FormBot.Dialogs
 {
@@ -18,7 +19,7 @@ namespace FormBot.Dialogs
             Name = X.Attribute("Name")?.Value;
             Type = X.Attribute("Type")?.Value;
             Text = X.Attribute("Text")?.Value;
-            Condition = X.Attribute("Text")?.Value;
+            Condition = X.Attribute("Condition")?.Value;
             if (Type == null) Type = "string";
             if (X.Descendants("Choice")!=null)
             {
@@ -41,7 +42,7 @@ namespace FormBot.Dialogs
         
         public string Condition { get; set; }
 
-        public bool Set(object X, object Value)
+        public bool Set(Indexed X, object Value)
         {
             // First we need to figure out the key value in case of Option field type
             if (Options!=null && Options.Length>0)
@@ -62,13 +63,13 @@ namespace FormBot.Dialogs
                 if (!int.TryParse((string)Value, out t)) return false;
                 // else Value = t; -- uncomment this to convert value to int type
             }
-            X.GetType().GetProperty(Name).SetValue(X, Value);
+            X[Name] = Value;
             return true;
         }
 
-        public object Get(object X)
+        public object Get(Indexed X)
         {
-            return X.GetType().GetProperty(Name).GetValue(X);
+            return X[Name];
         }
 
         public async Task Render(IDialogContext context)
@@ -79,31 +80,29 @@ namespace FormBot.Dialogs
             await context.PostAsync(msg);
         }
 
-        public bool IsApplicable(Object X)
+        public bool IsApplicable(Indexed X)
         {
             if (Condition == null || Condition.Length < 1) return true;
             var t = Condition.Split('=');
-            var v = X.GetType().GetProperty(t[0]).GetValue(X);
+            var v = X[t[0]];
             if (v == null) return true;
             return v.ToString() == t[1];
         }
     }
 
-    public interface IEntityRetriever<T>
-    {
-        T GetEntity(string id);
-    }
-
     [Serializable]
-    public class XMLFormDialog<T> : IDialog<T> where T: IEntityRetriever<T>, new()
+    public class XMLFormDialog<T> : IDialog<T> where T: Indexed, new()
     {
         Field[] Fields { get; }
         Field CurrentField { get; set; }
         T Object { get; set; }
 
+        protected IStore<T> Store { get; set; }
+
         string welcome_msg, return_msg;
-        public XMLFormDialog()
+        public XMLFormDialog(IStore<T> Store)
         {
+            this.Store = Store;
             var n = typeof(T).Name;
             var xdoc = XDocument.Load(System.Web.HttpContext.Current.Request.MapPath($"~/XML/{n}.xml"));
             Fields = (from z in xdoc.Descendants("Field") select new Field(z)).ToArray();
@@ -123,8 +122,7 @@ namespace FormBot.Dialogs
 
             if (Object==null)
             {
-                var tmp = new T();
-                Object = tmp.GetEntity(activity.From.Id);
+                Object = Store.Get(activity.From.Id);
             }
 
             if (CurrentField!=null)
@@ -146,7 +144,7 @@ namespace FormBot.Dialogs
             }
             if (CurrentField == null)
             {
-                await context.Forward(new MenuDialog<T>(), async (ctx,x) => { ctx.Done(Object); }, activity, CancellationToken.None);
+                await context.Forward(new MenuDialog<T>(Store), async (ctx,x) => { ctx.Done(Object); }, activity, CancellationToken.None);
                 // context.Done(Object);
             }
             else

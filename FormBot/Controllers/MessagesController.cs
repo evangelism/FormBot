@@ -5,6 +5,8 @@ using System.Web.Http;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
 using FormBot.Logic;
+using FormBot.Evangelism;
+using FormBot.Evangelism.Data;
 
 namespace FormBot
 {
@@ -20,7 +22,7 @@ namespace FormBot
             if (activity.Type == ActivityTypes.Message)
             {
                 await Conversation.SendAsync(activity, () => 
-                   new Dialogs.XMLFormDialog<PersonData>());
+                   new Dialogs.XMLFormDialog<DObject>(new MemoryStore<DObject>()));
             }
             else
             {

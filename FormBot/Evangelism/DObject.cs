@@ -2,17 +2,29 @@
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
+using System.Text;
 using System.Web;
 
 namespace FormBot.Evangelism
 {
-    public class DObject : DynamicObject, IObjectIndexer
+    [Serializable]
+    public class DObject : DynamicObject, Indexed
     {
         public Dictionary<string,object> Properties { get; private set; }
 
         public DObject()
         {
             Properties = new Dictionary<string, object>();
+        }
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            foreach(var p in Properties.Keys)
+            {
+                sb.AppendLine($" {p}: {this[p]}");
+            }
+            return sb.ToString();
         }
 
         public object this[string name]

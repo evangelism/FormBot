@@ -155,6 +155,7 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="XML\DObject.xml" />
     <Content Include="XML\PersonData.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -163,7 +164,11 @@
     <Compile Include="Dialogs\MenuDialog.cs" />
     <Compile Include="Dialogs\XMLFormDialog.cs" />
     <Compile Include="Dialogs\RootDialog.cs" />
+    <Compile Include="Evangelism\AzureStorage\ElasticTableEntity.cs" />
     <Compile Include="Evangelism\BotUtils.cs" />
+    <Compile Include="Evangelism\Data\IndexedStore.cs" />
+    <Compile Include="Evangelism\DObject.cs" />
+    <Compile Include="Evangelism\Indexed.cs" />
     <Compile Include="Evangelism\ObjectUtils.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

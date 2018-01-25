@@ -1,4 +1,5 @@
 ﻿using FormBot.Evangelism;
+using FormBot.Evangelism.Data;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
 using System;
@@ -10,8 +11,13 @@ using System.Web;
 namespace FormBot.Dialogs
 {
     [Serializable]
-    public class MenuDialog<T> : IDialog<T> where T : IEntityRetriever<T>, new()
+    public class MenuDialog<T> : IDialog<T> where T : Indexed, new()
     {
+        protected IStore<T> Store { get; set; }
+        public MenuDialog(IStore<T> Store)
+        {
+            this.Store = Store;
+        }
         public Task StartAsync(IDialogContext context)
         {
             context.Wait(MessageReceivedAsync);
@@ -21,9 +27,8 @@ namespace FormBot.Dialogs
         private async Task MessageReceivedAsync(IDialogContext context, IAwaitable<object> result)
         {
             var activity = await result as Activity;
-            var tmp = new T();
-            var obj = tmp.GetEntity(activity.From.Id);
-            await context.PostAsync("Ваши данные:" + obj.IntrospectProperties());
+            var obj = Store.Get(activity.From.Id);
+            await context.PostAsync("Ваши данные:" + obj.ToString());
             // calculate something for us to return
             int length = (activity.Text ?? string.Empty).Length;
 

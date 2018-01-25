@@ -8,7 +8,7 @@ using System.Web;
 namespace FormBot.Logic 
 {
     [Serializable]
-    public class PersonData : IEntityRetriever<PersonData>
+    public class PersonData
     {
         public static Dictionary<string, PersonData> Store = new Dictionary<string, PersonData>();
 

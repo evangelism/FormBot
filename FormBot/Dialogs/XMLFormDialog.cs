@@ -100,11 +100,11 @@ namespace FormBot.Dialogs
         protected IStore<T> Store { get; set; }
 
         string welcome_msg, return_msg;
-        public XMLFormDialog(IStore<T> Store)
+        public XMLFormDialog(IStore<T> Store, string fname=null)
         {
             this.Store = Store;
-            var n = typeof(T).Name;
-            var xdoc = XDocument.Load(System.Web.HttpContext.Current.Request.MapPath($"~/XML/{n}.xml"));
+            if (fname==null) fname = typeof(T).Name;
+            var xdoc = XDocument.Load(System.Web.HttpContext.Current.Request.MapPath($"~/XML/{fname}.xml"));
             Fields = (from z in xdoc.Descendants("Field") select new Field(z)).ToArray();
             welcome_msg = xdoc.Descendants("Intro").First().Value;
             return_msg = xdoc.Descendants("WelcomeBack").First().Value;

@@ -21,7 +21,7 @@ namespace FormBot
             if (activity.Type == ActivityTypes.Message)
             {
                 await Conversation.SendAsync(activity, () => 
-                   new Dialogs.XMLFormDialog<DObject>(new MemoryStore<DObject>()));
+                   new Dialogs.XMLFormDialog<DObject>(new MemoryStore<DObject>(),"PersonInfo"));
             }
             else
             {

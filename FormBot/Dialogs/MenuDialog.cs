@@ -36,7 +36,7 @@ namespace FormBot.Dialogs
                 case "Очистить":
                     Store.Remove(activity.From.Id);
                     await context.PostAsync("Данные удалены");
-                    await context.Forward(new XMLFormDialog<DObject>(new MemoryStore<DObject>()),MessageReceivedAsync,activity);
+                    await context.Forward(new XMLFormDialog<DObject>(new MemoryStore<DObject>(),"PersonInfo"),MessageReceivedAsync,activity);
                     break;
                 default:
                     await context.PostAsync("Команда непонятна");

@@ -8,6 +8,7 @@ namespace FormBot.Evangelism.Data
     public interface IStore<T> where T: new()
     {
         T Get(string id);
+        void Remove(string id);
     }
 
     [Serializable]
@@ -18,6 +19,11 @@ namespace FormBot.Evangelism.Data
         {
             if (!Objects.ContainsKey(id)) Objects.Add(id, new T());
             return Objects[id];
+        }
+
+        public void Remove(string id)
+        {
+            if (Objects.ContainsKey(id)) Objects.Remove(id);
         }
 
     }

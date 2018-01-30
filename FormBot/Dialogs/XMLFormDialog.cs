@@ -135,7 +135,7 @@ namespace FormBot.Dialogs
             {
                 foreach (var x in Fields)
                 {
-                    if (x.Get(Object) == null)
+                    if (x.Get(Object) == null && x.IsApplicable(Object))
                     {
                         CurrentField = x;
                         break;
@@ -144,8 +144,9 @@ namespace FormBot.Dialogs
             }
             if (CurrentField == null)
             {
-                await context.Forward(new MenuDialog<T>(Store), async (ctx,x) => { ctx.Done(Object); }, activity, CancellationToken.None);
-                // context.Done(Object);
+                // await context.Forward(new MenuDialog<T>(Store), async (ctx,x) => { ctx.Done(Object); }, activity, CancellationToken.None);
+                context.Call(new MenuDialog<T>(Store,Object), async (ctx, c) => { ctx.Done(Object); });    
+            // context.Done(Object);
             }
             else
             {

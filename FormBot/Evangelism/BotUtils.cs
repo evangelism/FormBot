@@ -1,4 +1,5 @@
-﻿using Microsoft.Bot.Connector;
+﻿using Microsoft.Bot.Builder.Dialogs;
+using Microsoft.Bot.Connector;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,14 @@ namespace FormBot.Evangelism
                            }).ToArray()
             };
             return new Attachment[] { Card.ToAttachment() };
+        }
+
+        public static IMessageActivity MakeMenu(this IDialogContext ctx, string txt, string[] opts)
+        {
+            var msg = ctx.MakeMessage();
+            msg.Text = txt;
+            msg.Attachments = opts.GenOptions();
+            return msg;
         }
 
     }

@@ -14,28 +14,36 @@ namespace FormBot.Dialogs
     public class MenuDialog<T> : IDialog<T> where T : Indexed, new()
     {
         protected IStore<T> Store { get; set; }
-        public MenuDialog(IStore<T> Store)
+        protected Indexed MyObject { get; set; }
+        public MenuDialog(IStore<T> Store, Indexed MyObject)
         {
             this.Store = Store;
+            this.MyObject = MyObject;
         }
-        public Task StartAsync(IDialogContext context)
+        public async Task StartAsync(IDialogContext context)
         {
+            await context.PostAsync("Ваши даные:" + MyObject.ToString());
+            await context.PostAsync(context.MakeMenu("Что вы хотите сделать?", new string[] { "Очистить", "Редактировать" }));
             context.Wait(MessageReceivedAsync);
-            return Task.CompletedTask;
         }
 
         private async Task MessageReceivedAsync(IDialogContext context, IAwaitable<object> result)
         {
             var activity = await result as Activity;
-            var obj = Store.Get(activity.From.Id);
-            await context.PostAsync("Ваши данные:" + obj.ToString());
-            // calculate something for us to return
-            int length = (activity.Text ?? string.Empty).Length;
 
-            // return our reply to the user
-            await context.PostAsync($"You sent {activity.Text} which was {length} characters");
-
-            context.Wait(MessageReceivedAsync);
+            switch(activity.Text)
+            {
+                case "Очистить":
+                    Store.Remove(activity.From.Id);
+                    await context.PostAsync("Данные удалены");
+                    await context.Forward(new XMLFormDialog<DObject>(new MemoryStore<DObject>()),MessageReceivedAsync,activity);
+                    break;
+                default:
+                    await context.PostAsync("Команда непонятна");
+                    await context.PostAsync(context.MakeMenu("Что вы хотите сделать?", new string[] { "Очистить", "Редактировать" }));
+                    context.Wait(MessageReceivedAsync);
+                    break;
+            }
         }
 
     }

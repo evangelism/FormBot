@@ -1,4 +1,5 @@
 ﻿using FormBot.Evangelism;
+using FormBot.Evangelism.AzureStorage;
 using FormBot.Evangelism.Data;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
@@ -36,7 +37,10 @@ namespace FormBot.Dialogs
                 case "Очистить":
                     Store.Remove(activity.From.Id);
                     await context.PostAsync("Данные удалены");
-                    await context.Forward(new XMLFormDialog<DObject>(new MemoryStore<DObject>(),"PersonInfo"),MessageReceivedAsync,activity);
+                    context.Call(
+                        new XMLFormDialog<ElasticTableEntity>(
+                          new AzureStore<ElasticTableEntity>(
+                           new AzureTable(Config.ConnectionString, "PersonInfo"), "PersonInfo"), "PersonInfo"), MessageReceivedAsync);
                     break;
                 default:
                     await context.PostAsync("Команда непонятна");

@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Cities>
+  <City Name="Абакан" Lat="53.720976" Long="91.44242300000001" Country="Россия"/>
+  <City Name="Архангельск" Lat="64.539304" Long="40.518735" Country="Россия"/>
+  <City Name="Астана" Lat="71.430564" Long="51.128422" Country="Россия"/>
+  <City Name="Астрахань" Lat="46.347869" Long="48.033574 " Country="Россия"/>
+  <City Name="Барнаул" Lat="53.356132" Long="83.74961999999999" Country="Россия"/>
+  <City Name="Белгород" Lat="50.597467" Long="36.588849" Country="Россия"/>
+  <City Name="Бийск" Lat="52.541444" Long="85.219686 " Country="Россия"/>
+  <City Name="Бишкек" Lat="42.871027" Long="74.59452 " Country="Киргизия"/>
+  <City Name="Благовещенск" Lat="50.290658" Long="127.527173 " Country="Россия"/>
+  <City Name="Братск" Lat="56.151382" Long="101.634152 " Country="Россия"/>
+  <City Name="Брянск" Lat="53.2434" Long="34.364198" Country="Россия"/>
+  <City Name="Великий Новгород" Lat="58.521475" Long="31.275475" Country="Россия"/>
+  <City Name="Владивосток" Lat="43.134019" Long="131.928379" Country="Россия"/>
+  <City Name="Владикавказ" Lat="43.024122" Long="44.690476" Country="Россия"/>
+  <City Name="Владимир" Lat="56.129042" Long="40.40703 " Country="Россия"/>
+  <City Name="Волгоград" Lat="48.707103" Long="44.516939 " Country="Россия"/>
+  <City Name="Вологда" Lat="59.220492" Long="39.891568" Country="Россия"/>
+  <City Name="Воронеж" Lat="51.661535" Long="39.200287" Country="Россия"/>
+  <City Name="Грозный" Lat="43.317992" Long="45.698197 " Country="Россия"/>
+  <City Name="Донецк" Lat="48.015877" Long="37.80285 " Country="Украина"/>
+  <City Name="Екатеринбург" Lat="56.838002" Long="60.597295" Country="Россия"/>
+  <City Name="Иваново" Lat="57.000348" Long="40.973921" Country="Россия"/>
+  <City Name="Ижевск" Lat="56.852775" Long="53.211463 " Country="Россия"/>
+  <City Name="Иркутск" Lat="52.286387" Long="104.28066 " Country="Россия"/>
+  <City Name="Казань" Lat="55.795793" Long="49.106585 " Country="Россия"/>
+  <City Name="Калининград" Lat="55.916229" Long="37.854467" Country="Россия"/>
+  <City Name="Калуга" Lat="54.507014" Long="36.252277" Country="Россия"/>
+  <City Name="Каменск-Уральский" Lat="56.414897" Long="61.918905 " Country="Россия"/>
+  <City Name="Кемерово" Lat="55.359594" Long="86.08778100000001" Country="Россия"/>
+  <City Name="Киев" Lat="50.402395" Long="30.532690 " Country="Украина"/>
+  <City Name="Киров" Lat="54.079033" Long="34.323163" Country="Россия"/>
+  <City Name="Комсомольск-на-Амуре" Lat="50.54986" Long="137.007867 " Country="Россия"/>
+  <City Name="Королев" Lat="55.916229" Long="37.854467" Country="Россия"/>
+  <City Name="Кострома" Lat="57.767683" Long="40.926418" Country="Россия"/>
+  <City Name="Краснодар" Lat="45.023877" Long="38.970157" Country="Россия"/>
+  <City Name="Красноярск" Lat="56.008691" Long="92.870529" Country="Россия"/>
+  <City Name="Курск" Lat="51.730361" Long="36.192647" Country="Россия"/>
+  <City Name="Липецк" Lat="52.61022" Long="39.594719" Country="Россия"/>
+  <City Name="Магнитогорск" Lat="53.411677" Long="58.984415 " Country="Россия"/>
+  <City Name="Махачкала" Lat="42.984913" Long="47.504646" Country="Россия"/>
+  <City Name="Минск" Lat="53.906077" Long="27.554914 " Country="Беларусь"/>
+  <City Name="Москва" Lat="55.755773" Long="37.617761" Country="Россия"/>
+  <City Name="Мурманск" Lat="68.96956299999999" Long="33.07454" Country="Россия"/>
+  <City Name="Набережные Челны" Lat="55.743553" Long="52.39582 " Country="Россия"/>
+  <City Name="Нижний Новгород" Lat="56.323902" Long="44.002267" Country="Россия"/>
+  <City Name="Нижний Тагил" Lat="57.910144" Long="59.98132 " Country="Россия"/>
+  <City Name="Новокузнецк" Lat="53.786502" Long="87.155205" Country="Россия"/>
+  <City Name="Новороссийск" Lat="44.723489" Long="37.76866" Country="Россия"/>
+  <City Name="Новосибирск" Lat="55.028739" Long="82.90692799999999" Country="Россия"/>
+  <City Name="Норильск" Lat="69.349039" Long="88.201014" Country="Россия"/>
+  <City Name="Омск" Lat="54.989342" Long="73.368212 " Country="Россия"/>
+  <City Name="Орел" Lat="52.970306" Long="36.063514" Country="Россия"/>
+  <City Name="Оренбург" Lat="51.76806" Long="55.097449" Country="Россия"/>
+  <City Name="Пенза" Lat="53.194546" Long="45.019529 " Country="Россия"/>
+  <City Name="Первоуральск" Lat="56.908099" Long="59.942935 " Country="Россия"/>
+  <City Name="Пермь" Lat="58.004785" Long="56.237654" Country="Россия"/>
+  <City Name="Прокопьевск" Lat="53.895355" Long="86.744657 " Country="Россия"/>
+  <City Name="Псков" Lat="57.819365" Long="28.331786" Country="Россия"/>
+  <City Name="Ростов-на-Дону" Lat="47.227151" Long="39.744972" Country="Россия"/>
+  <City Name="Рыбинск" Lat="58.13853" Long="38.573586" Country="Россия"/>
+  <City Name="Рязань" Lat="54.619886" Long="39.744954" Country="Россия"/>
+  <City Name="Самара" Lat="53.195533" Long="50.101801 " Country="Россия"/>
+  <City Name="Санкт-Петербург" Lat="59.938806" Long="30.314278" Country="Россия"/>
+  <City Name="Саратов" Lat="51.531528" Long="46.03582 " Country="Россия"/>
+  <City Name="Севастополь" Lat="44.616649" Long="33.52536 " Country="Россия"/>
+  <City Name="Северодвинск" Lat="64.55818600000001" Long="39.82962" Country="Россия"/>
+  <City Name="Северодвинск" Lat="64.558186" Long="39.82962 " Country="Россия"/>
+  <City Name="Симферополь" Lat="44.952116" Long="34.102411 " Country="Россия"/>
+  <City Name="Сочи" Lat="43.581509" Long="39.722882" Country="Россия"/>
+  <City Name="Ставрополь" Lat="45.044502" Long="41.969065" Country="Россия"/>
+  <City Name="Сухум" Lat="43.015679" Long="41.025071 " Country="Абхазия"/>
+  <City Name="Тамбов" Lat="52.721246" Long="41.452238" Country="Россия"/>
+  <City Name="Ташкент" Lat="41.314321" Long="69.267295 " Country="Узбекистан"/>
+  <City Name="Тверь" Lat="56.859611" Long="35.911896" Country="Россия"/>
+  <City Name="Тольятти" Lat="53.511311" Long="49.418084" Country="Россия"/>
+  <City Name="Томск" Lat="56.495116" Long="84.972128" Country="Россия"/>
+  <City Name="Тула" Lat="54.193033" Long="37.617752" Country="Россия"/>
+  <City Name="Тюмень" Lat="57.153033" Long="65.534328 " Country="Россия"/>
+  <City Name="Улан-Удэ" Lat="51.833507" Long="107.584125" Country="Россия"/>
+  <City Name="Ульяновск" Lat="54.317002" Long="48.402243 " Country="Россия"/>
+  <City Name="Уфа" Lat="54.734768" Long="55.957838 " Country="Россия"/>
+  <City Name="Хабаровск" Lat="48.472584" Long="135.057732 " Country="Россия"/>
+  <City Name="Харьков" Lat="49.993499" Long="36.230376 " Country="Украина"/>
+  <City Name="Чебоксары" Lat="56.1439" Long="47.248887" Country="Россия"/>
+  <City Name="Челябинск" Lat="55.159774" Long="61.402455" Country="Россия"/>
+  <City Name="Шахты" Lat="47.708485" Long="40.215958" Country="Россия"/>
+  <City Name="Энгельс" Lat="51.498891" Long="46.125121 " Country="Россия"/>
+  <City Name="Южно-Сахалинск" Lat="46.959118" Long="142.738068 " Country="Россия"/>
+  <City Name="Якутск" Lat="62.027833" Long="129.704151" Country="Россия"/>
+  <City Name="Ярославль" Lat="57.626569" Long="39.893822" Country="Россия"/>
+</Cities>

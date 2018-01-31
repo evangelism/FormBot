@@ -67,24 +67,6 @@ namespace FormBot.Dialogs
             return true;
         }
 
-        public bool SetX<T>(Indexed X, Activity activity)
-        {
-            var val = activity.Text;
-            if (Type=="geostring")
-            {
-                var E = activity.Entities;
-                if (E!=null && E.Count>0)
-                {
-                    var lat = double.Parse(E[0].Properties["geo"]["latitude"].ToString());
-                    var lng = double.Parse(E[0].Properties["geo"]["longitude"].ToString());
-                    // var R = SimpleGeolocator.ReverseLookup(lat, lng);
-                    // if (R.ContainsKey("locality")) val = R["locality"];
-                    val = $"lat:{lat},lng:{lng}";
-                }
-            }
-            return Set(X, val);
-        }
-
         public object Get(Indexed X)
         {
             return X[Name];

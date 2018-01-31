@@ -50,10 +50,8 @@ namespace FormBot.Evangelism.AzureStorage
 
         public void Delete(string PartitionKey, string RowKey)
         {
-            var E = new ElasticTableEntity();
-            E.PartitionKey = PartitionKey;
-            E.RowKey = RowKey;
-            Table.Execute(TableOperation.Delete(E));
+            var E = Get(PartitionKey,RowKey);
+            if (E!=null) Table.Execute(TableOperation.Delete(E));
         }
 
         public ElasticTableEntity Get(string PartitionKey, string RowKey)

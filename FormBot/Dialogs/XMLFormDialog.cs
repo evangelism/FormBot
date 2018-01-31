@@ -18,6 +18,7 @@ namespace FormBot.Dialogs
         Field[] Fields { get; }
         Field CurrentField { get; set; }
         T Object { get; set; }
+        string Id { get; set; }
 
         protected IStore<T> Store { get; set; }
 
@@ -40,11 +41,21 @@ namespace FormBot.Dialogs
 
         private async Task MessageReceivedAsync(IDialogContext context, IAwaitable<object> result)
         {
-            var activity = await result as Activity;
+            string msg;
+            var o = await result;
+            if (o is Activity) // got activity
+            {
+                msg = ((Activity)o).Text;
+                Id = ((Activity)o).From.Id;
+            }
+            else
+            {
+                msg = (string)o;
+            }
 
             if (Object==null)
             {
-                if (Store.Exists(activity.From.Id))
+                if (Store.Exists(Id))
                 {
                     await context.PostAsync(return_msg);
                 }
@@ -52,15 +63,16 @@ namespace FormBot.Dialogs
                 {
                     await context.PostAsync(welcome_msg);
                 }
-                Object = Store.Get(activity.From.Id);
+                Object = Store.Get(Id);
             }
 
             if (CurrentField!=null)
             {
-                if (CurrentField.SetX<T>(Object, activity))
+                var val = msg;
+                if (CurrentField.Set(Object, val))
                 {
                     CurrentField = null;
-                    Store.Update(activity.From.Id,Object);
+                    Store.Update(Id,Object);
                 }
                 else await context.PostAsync("Ошибочное значение");
             }
@@ -76,16 +88,24 @@ namespace FormBot.Dialogs
                     }
                 }
             }
-            if (CurrentField == null)
+            if (CurrentField == null) // all fields of the object have been filled
             {
                 // await context.Forward(new MenuDialog<T>(Store), async (ctx,x) => { ctx.Done(Object); }, activity, CancellationToken.None);
                 context.Call(new MenuDialog<T>(Store,Object), async (ctx, c) => { ctx.Done(Object); });    
-            // context.Done(Object);
+                // context.Done(Object);
             }
-            else
+            else // we have a new field to fill
             {
-                await CurrentField.Render(context);
-                context.Wait(MessageReceivedAsync);
+                if (CurrentField.Type == "geostring")
+                {
+                    await context.PostAsync(CurrentField.Text);
+                    context.Call(new GeoDialog("GeoCities"), MessageReceivedAsync);
+                }
+                else
+                {
+                    await CurrentField.Render(context);
+                    context.Wait(MessageReceivedAsync);
+                }
             }
         }
     }

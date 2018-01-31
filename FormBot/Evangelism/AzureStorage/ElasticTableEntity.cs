@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
+using System.Text;
 using System.Web;
 
 namespace FormBot.Evangelism.AzureStorage
@@ -37,6 +38,16 @@ namespace FormBot.Evangelism.AzureStorage
                 else
                     this.Properties.Add(key, value);
             }
+        }
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            foreach (var p in Properties.Keys)
+            {
+                sb.AppendLine($" {p}: {this[p]}");
+            }
+            return sb.ToString();
         }
 
         #region DynamicObject overrides

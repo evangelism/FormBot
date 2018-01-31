@@ -21,10 +21,11 @@ namespace FormBot
         {
             if (activity.Type == ActivityTypes.Message)
             {
+                // await Conversation.SendAsync(activity, () => new Dialogs.GeoDialog("GeoCities"));
                 await Conversation.SendAsync(activity, () => 
                    new Dialogs.XMLFormDialog<ElasticTableEntity>(
                        new AzureStore<ElasticTableEntity>(
-                           new AzureTable(Config.ConnectionString,"PersonInfo"),"PersonInfo"),"PersonInfo"));
+                           new AzureTable(Config.ConnectionString,"PersonInfo"),"PersonInfo"),"PersonInfo").Loop());
             }
             else
             {

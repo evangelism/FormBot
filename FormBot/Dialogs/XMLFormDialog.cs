@@ -44,12 +44,24 @@ namespace FormBot.Dialogs
 
             if (Object==null)
             {
+                if (Store.Exists(activity.From.Id))
+                {
+                    await context.PostAsync(return_msg);
+                }
+                else
+                {
+                    await context.PostAsync(welcome_msg);
+                }
                 Object = Store.Get(activity.From.Id);
             }
 
             if (CurrentField!=null)
             {
-                if (CurrentField.SetX<T>(Object, activity)) CurrentField = null;
+                if (CurrentField.SetX<T>(Object, activity))
+                {
+                    CurrentField = null;
+                    Store.Update(activity.From.Id,Object);
+                }
                 else await context.PostAsync("Ошибочное значение");
             }
 

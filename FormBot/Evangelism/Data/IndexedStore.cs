@@ -7,8 +7,10 @@ namespace FormBot.Evangelism.Data
 {
     public interface IStore<T>
     {
+        bool Exists(string id);
         T Get(string id);
         void Remove(string id);
+        void Update(string id, T obj);
     }
 
     [Serializable]
@@ -25,6 +27,13 @@ namespace FormBot.Evangelism.Data
         {
             if (Objects.ContainsKey(id)) Objects.Remove(id);
         }
+
+        public void Update(string id, T obj)
+        {
+            Objects[id] = obj;
+        }
+
+        public bool Exists(string id) => Objects.ContainsKey(id);
 
     }
 

@@ -17,6 +17,7 @@ namespace FormBot.Evangelism.AzureStorage
 
         [NonSerialized]
         private CloudTable _table;
+
         public CloudTable Table
         {
             get

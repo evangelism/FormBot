@@ -16,6 +16,13 @@ namespace FormBot.Evangelism.AzureStorage
             this.Table = Table;
             this.PartitionKey = PartitionKey;
         }
+
+        public bool Exists(string id)
+        {
+            var res = Table.Get(PartitionKey, id);
+            return (res != null);
+        }
+
         public T Get(string id)
         {
             var res = Table.Get(PartitionKey, id) as T;
@@ -33,5 +40,12 @@ namespace FormBot.Evangelism.AzureStorage
         {
             Table.Delete(PartitionKey, id);
         }
+
+        public void Update(string id, T obj)
+        {
+            // id is ignored here, we assume it exists inside obj
+            Table.Update(obj);
+        }
+
     }
 }

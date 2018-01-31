@@ -15,30 +15,27 @@ namespace FormBot.Evangelism.AzureStorage
     {
         public ElasticTableEntity()
         {
-            this.Properties = new Dictionary<string, EntityProperty>();
+            this.Properties = new Dictionary<string, object>();
         }
 
         public bool Exists(string name) => Properties.ContainsKey(name);
 
-        public IDictionary<string, EntityProperty> Properties { get; private set; }
+        public IDictionary<string, object> Properties { get; private set; }
 
         public object this[string key]
         {
             get
             {
                 if (!this.Properties.ContainsKey(key))
-                    this.Properties.Add(key, this.GetEntityProperty(key, null));
-
+                    this.Properties.Add(key, null);
                 return this.Properties[key];
             }
             set
             {
-                var property = this.GetEntityProperty(key, value);
-
                 if (this.Properties.ContainsKey(key))
-                    this.Properties[key] = property;
+                    this.Properties[key] = value;
                 else
-                    this.Properties.Add(key, property);
+                    this.Properties.Add(key, value);
             }
         }
 
@@ -70,37 +67,25 @@ namespace FormBot.Evangelism.AzureStorage
 
         public void ReadEntity(IDictionary<string, EntityProperty> properties, OperationContext operationContext)
         {
-            this.Properties = properties;
+            Properties = new Dictionary<string, object>();
+            foreach(var p in properties)
+            {
+                Properties.Add(p.Key, GetValue(p.Value));
+            }
         }
 
         public IDictionary<string, EntityProperty> WriteEntity(OperationContext operationContext)
         {
-            return this.Properties;
+            var props = new Dictionary<string, EntityProperty>();
+            foreach(var p in Properties)
+            {
+                props.Add(p.Key, GetEntityProperty(p.Key, p.Value));
+            }
+            return props;
         }
 
         #endregion
 
-        #region ICustomMemberProvider implementation for LinqPad's Dump
-
-        public IEnumerable<string> GetNames()
-        {
-            return new[] { "PartitionKey", "RowKey", "Timestamp", "ETag" }
-                .Union(this.Properties.Keys);
-        }
-
-        public IEnumerable<Type> GetTypes()
-        {
-            return new[] { typeof(string), typeof(string), typeof(DateTimeOffset), typeof(string) }
-                .Union(this.Properties.Values.Select(x => this.GetType(x.PropertyType)));
-        }
-
-        public IEnumerable<object> GetValues()
-        {
-            return new object[] { this.PartitionKey, this.RowKey, this.Timestamp, this.ETag }
-                .Union(this.Properties.Values.Select(x => this.GetValue(x)));
-        }
-
-        #endregion
 
         private EntityProperty GetEntityProperty(string key, object value)
         {

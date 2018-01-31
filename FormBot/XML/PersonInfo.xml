@@ -13,6 +13,7 @@
       <Choice Value="IT">ИТ и телекоммуникации</Choice>
       <Choice Value="Build">Строительство</Choice>
     </Field>
+    <Field Name="Location" Type="geostring" Text="Где вы находитесь? Пошлите геолокацию, или напишите фрагмент названия города"/>
     <Field Name="Student" Type="bool" Text="Вы студент?"/>
     <Field Name="YearGraduated" Condition="Student=Y" Type="int" Text="В каком году выпустились из университета?"/>
   </Fields>

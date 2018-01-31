@@ -26,6 +26,7 @@ namespace FormBot.Evangelism
             }
             return sb.ToString();
         }
+        public bool Exists(string name) => Properties.ContainsKey(name);
 
         public object this[string name]
         {

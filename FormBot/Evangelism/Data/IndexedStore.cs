@@ -5,7 +5,7 @@ using System.Web;
 
 namespace FormBot.Evangelism.Data
 {
-    public interface IStore<T> where T: new()
+    public interface IStore<T>
     {
         T Get(string id);
         void Remove(string id);

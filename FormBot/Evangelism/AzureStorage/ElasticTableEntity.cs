@@ -10,12 +10,15 @@ using System.Web;
 
 namespace FormBot.Evangelism.AzureStorage
 {
+    [Serializable]
     public class ElasticTableEntity : DynamicObject, ITableEntity, Indexed
     {
         public ElasticTableEntity()
         {
             this.Properties = new Dictionary<string, EntityProperty>();
         }
+
+        public bool Exists(string name) => Properties.ContainsKey(name);
 
         public IDictionary<string, EntityProperty> Properties { get; private set; }
 

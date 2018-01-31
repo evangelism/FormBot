@@ -147,18 +147,24 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="XML\DObject.xml" />
+    <Content Include="XML\PersonInfo.xml">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Config.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
+    <Compile Include="Dialogs\Field.cs" />
     <Compile Include="Dialogs\MenuDialog.cs" />
     <Compile Include="Dialogs\XMLFormDialog.cs" />
-    <Compile Include="Dialogs\RootDialog.cs" />
+    <Compile Include="Evangelism\AzureStorage\AzureStore.cs" />
+    <Compile Include="Evangelism\AzureStorage\AzureTable.cs" />
     <Compile Include="Evangelism\AzureStorage\ElasticTableEntity.cs" />
     <Compile Include="Evangelism\BotUtils.cs" />
     <Compile Include="Evangelism\Data\IndexedStore.cs" />
     <Compile Include="Evangelism\DObject.cs" />
+    <Compile Include="Evangelism\Geo\SimpleGeolocator.cs" />
     <Compile Include="Evangelism\Indexed.cs" />
     <Compile Include="Evangelism\ObjectUtils.cs" />
     <Compile Include="Global.asax.cs">

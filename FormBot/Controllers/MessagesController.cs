@@ -6,6 +6,7 @@ using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
 using FormBot.Evangelism;
 using FormBot.Evangelism.Data;
+using FormBot.Evangelism.AzureStorage;
 
 namespace FormBot
 {
@@ -21,7 +22,9 @@ namespace FormBot
             if (activity.Type == ActivityTypes.Message)
             {
                 await Conversation.SendAsync(activity, () => 
-                   new Dialogs.XMLFormDialog<DObject>(new MemoryStore<DObject>(),"PersonInfo"));
+                   new Dialogs.XMLFormDialog<ElasticTableEntity>(
+                       new AzureStore<ElasticTableEntity>(
+                           new AzureTable(Config.ConnectionString,"PersonInfo"),"PersonInfo"),"PersonInfo"));
             }
             else
             {
